@@ -75,7 +75,7 @@ jQuery(function ($) {
     //Check the number of fields and return boolean
     function checkLimit() {
         var json = formBuilder.actions.getData();
-        if (json.length > 10) {
+        if (json.length > 9) {
             return true;
         }
         return false;

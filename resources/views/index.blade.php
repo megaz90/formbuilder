@@ -31,12 +31,18 @@
         </nav>
 
         <main class="container mt-14 mx-auto">
+            <div class="flex justify-center space-x-10 mb-10">
+                <input type="text" class="block border-2 rounded-lg border-blue-500 py-2 px-5 focus:bg-blue-200">
+                <textarea name="" id="" cols="30" rows="5" class="border-2 rounded-lg border-blue-500 py-2 px-5 focus:bg-blue-200"></textarea>
+            </div>
             <div class="flex justify-center space-x-10">
                 <button class="py-1 px-6 mb-14 rounded-2xl border-2 border-blue-500 hover:bg-blue-300" id="json">JSON</button>
                 <button class="py-1 px-6 mb-14 rounded-2xl border-2 border-blue-500 hover:bg-blue-300" id="save">SAVE</button>
                 <button class="py-1 px-6 mb-14 rounded-2xl border-2 border-red-500 hover:bg-red-200" id="save">CLEAR ALL</button>
             </div>
-            <div id="fb-editor"></div>
+            <div class="rounded shadow p-10 bg-gray-100">
+                <div id="fb-editor"></div>
+            </div>
         </main>
 
 
