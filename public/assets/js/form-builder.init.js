@@ -37,20 +37,20 @@ jQuery(function ($) {
                 left: "auto",
             },
         },
-        onAddField: function (fieldId) {
-            let res = checkLimit();
-            if (res) {
-                formBuilder.actions.removeField();
-                alert("You can't add more than 10 fields");
-                return;
-            }
-        },
+        // onAddField: function (fieldId) {
+        //     let res = checkLimit();
+        //     if (res) {
+        //         formBuilder.actions.removeField(fieldId);
+        //         alert("You can't add more than 10 fields");
+        //         return;
+        //     }
+        // },
 
         onSave: function (evt, formData) {
             let limit = checkLimit();
             if (limit) {
                 alert("You can't add more than 10 fields");
-                return;
+                return 0;
             } else {
                 console.log("Continue saving");
             }
