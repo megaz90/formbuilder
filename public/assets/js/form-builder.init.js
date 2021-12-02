@@ -52,6 +52,7 @@ jQuery(function ($) {
                 alert("You can't add more than 10 fields");
                 return 0;
             } else {
+                saveForm();
                 console.log("Continue saving");
             }
         },
@@ -79,6 +80,20 @@ jQuery(function ($) {
             return true;
         }
         return false;
+    }
+
+    async function saveForm() {
+        let json = formBuilder.actions.getData();
+        const token = document.querySelector('meta[name="csrf-token"]').content;
+        const response = await fetch("/form/store", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": token,
+            },
+            body: JSON.stringify(json),
+        });
+        console.log(response);
     }
 
     //Constraint to check the number of fields
