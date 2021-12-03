@@ -52,8 +52,25 @@ jQuery(function ($) {
                 alert("You can't add more than 10 fields");
                 return 0;
             } else {
-                saveForm();
-                console.log("Continue saving");
+                saveForm().then((res) => {
+                    if (res.status === 400) {
+                        let msg = document.getElementById("message");
+                        msg.innerHTML = "Invalid/Missing Form data";
+                        msg.setAttribute("class", "text-danger");
+                        console.error("Error saving form");
+                        return;
+                    } else if (res.status === 200) {
+                        let msg = document.getElementById("message");
+                        msg.innerHTML = "Form Saved Successfully";
+                        msg.setAttribute("class", "text-success text-bold");
+
+                        document.getElementById("name").value = "";
+                        document.getElementById("description").value = "";
+                        formBuilder.actions.clearFields();
+                    } else {
+                        alert("Some Error Occured Contact Admin");
+                    }
+                });
             }
         },
 
@@ -83,7 +100,15 @@ jQuery(function ($) {
     }
 
     async function saveForm() {
+        let formName = document.getElementById("name").value;
+        let formDescription = document.getElementById("description").value;
         let json = formBuilder.actions.getData();
+
+        let data = {
+            name: formName,
+            description: formDescription,
+            json: json,
+        };
         const token = document.querySelector('meta[name="csrf-token"]').content;
         const response = await fetch("/form/store", {
             method: "POST",
@@ -91,9 +116,9 @@ jQuery(function ($) {
                 "Content-Type": "application/json",
                 "X-CSRF-TOKEN": token,
             },
-            body: JSON.stringify(json),
+            body: JSON.stringify(data),
         });
-        console.log(response);
+        return response;
     }
 
     //Constraint to check the number of fields
