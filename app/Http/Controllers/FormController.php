@@ -6,6 +6,7 @@ use App\Models\Form;
 use App\Models\FormData;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FormController extends Controller
 {
@@ -23,6 +24,13 @@ class FormController extends Controller
             ], 400);
         }
 
+        $user = Auth::user();
+        if ($user->forms) {
+            return response()->json([
+                'message' => 'You can only create 1 form'
+            ], 202);
+        }
+
         $form = Form::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -37,5 +45,24 @@ class FormController extends Controller
         return response()->json([
             'message' => 'Form created successfully',
         ], 200);
+    }
+
+    public function show()
+    {
+        return view('show');
+    }
+
+    public function getForm()
+    {
+        $user = Auth::user();
+        $form = $user->form->form_data;
+        $data = json_decode($form->data);
+
+        return response()->json($data);
+    }
+
+    public function check(Request $request)
+    {
+        dd($request->all());
     }
 }

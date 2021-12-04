@@ -67,6 +67,14 @@ jQuery(function ($) {
                         document.getElementById("name").value = "";
                         document.getElementById("description").value = "";
                         formBuilder.actions.clearFields();
+                    } else if (res.status === 202) {
+                        let msg = document.getElementById("message");
+                        msg.innerHTML = "You can only creat one form";
+                        msg.setAttribute("class", "text-primary text-bold");
+
+                        document.getElementById("name").value = "";
+                        document.getElementById("description").value = "";
+                        formBuilder.actions.clearFields();
                     } else {
                         alert("Some Error Occured Contact Admin");
                     }

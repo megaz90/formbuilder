@@ -23,4 +23,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['prefix' => '/form', 'as' => 'form.', 'middleware' => 'auth'], function () {
     Route::post('/store', [FormController::class, 'store'])->name('store');
     Route::get('/show', [FormController::class, 'show'])->name('show');
+    Route::get('/getForm', [FormController::class, 'getForm'])->name('getForm');
+    Route::post('/check', [FormController::class, 'check'])->name('check');
 });
